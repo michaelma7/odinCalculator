@@ -4,7 +4,7 @@ let num2 = '';
 let operand = '';
 
 function operate (num1, operand, displayValue) {
-    let operandIndex = displayValue.indexOf(`${operand}`) + 1;
+    let operandIndex = displayValue.indexOf(operand);
     num2 = displayValue.slice(operandIndex);
     let display = document.querySelector('.display');
     let result = 0;
@@ -45,30 +45,31 @@ function reset () {
 }
 
 function changeDisplay (value) {
-    document.querySelector('.display').textContent += value;
     if (value === '+' || value === '-' || value === '*' || value === '/' || value === '^'){
         operand = value;
         num1 = document.querySelector('.display').textContent;
-        document.querySelector('.display').textContent += value;
+        document.querySelector('.display').textContent += `${value}`;
+    } else {
+        document.querySelector('.display').textContent += `${value}`;
     }
 }
 
 //Event Listeners
-const numeric = doucment.querySelectorAll('.numeric');
-numeric.forEach(button => button.addEventListener('click', (e) => changeDisplay(e.target.value)));
+const numeric = document.querySelectorAll('.numeric');
+numeric.forEach(button => button.addEventListener('click', (e) => changeDisplay(e.target.id)));
 
 const operators = document.querySelectorAll('.operators button');
-operators.forEach(operator => operator.addEventListener('click', (e) => changeDisplay(e.target.value)));
+operators.forEach(operator => operator.addEventListener('click', (e) => changeDisplay(e.target.textContent)));
 
-const equals = document.querySelector('#=');
-equals.addEventListener('click', operate);
+const equals = document.querySelector('#equals');
+equals.addEventListener('click', operate(num1, operand, document.querySelector('.display').textContent));
 
 const clear = document.querySelector('#clear');
 clear.addEventListener('click', reset);
 
 //operator functions NOT WORKING
-function add(a, b) => a + b;
-function subtract(a, b) => a - b;
-function multiply(a, b) => a * b;
-function divide(a, b) => a / b;
-function exponent(a, b) => Math.pow(a,b);
+function add (a, b)  {return a + b};
+function subtract (a, b)  {return a - b};
+function multiply (a, b) {return a * b};
+function divide (a, b) {return a / b};
+function exponent (a, b) {return Math.pow(a,b)};
