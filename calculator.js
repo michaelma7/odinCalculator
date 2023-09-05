@@ -4,35 +4,25 @@ let num2 = '';
 let operand = '';
 
 function operate (num1, operand, displayValue) {
-    let operandIndex = displayValue.indexOf(operand);
+    let operandIndex = displayValue.indexOf(operand) + 1;
     num2 = displayValue.slice(operandIndex);
     let display = document.querySelector('.display');
     let result = 0;
     switch (operand) {
         case '+':
-            result = add(num1, num2);
-            display.textContent = result;
-            return
+            return display.textContent = add(num1, num2);
             break;
         case '-':
-            result = subtract(num1, num2);
-            display.textContent = result;
-            return
+            return display.textContent = subtract(num1, num2);
             break;
         case '*': 
-            result = multiply(num1, num2);
-            display.textContent = result;
-            return
+            return display.textContent = multiply(num1, num2);
             break;
         case '/':
-            result = divide(num1, num2);
-            display.textContent = result;
-            return
+            return display.textContent = divide(num1, num2);
             break;
-        case '^':
-            result = exponent(num1, num2);
-            display.textContent = result;
-            return
+        case '^':           
+            return display.textContent = exponent(num1, num2);
     };
 }
 
@@ -62,12 +52,12 @@ const operators = document.querySelectorAll('.operators button');
 operators.forEach(operator => operator.addEventListener('click', (e) => changeDisplay(e.target.textContent)));
 
 const equals = document.querySelector('#equals');
-equals.addEventListener('click', operate(num1, operand, document.querySelector('.display').textContent));
+equals.addEventListener('click', (e) => operate(num1, operand, document.querySelector('.display').textContent));
 
 const clear = document.querySelector('#clear');
 clear.addEventListener('click', reset);
 
-//operator functions NOT WORKING
+//operator functions
 function add (a, b)  {return a + b};
 function subtract (a, b)  {return a - b};
 function multiply (a, b) {return a * b};
