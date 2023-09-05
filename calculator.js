@@ -15,7 +15,7 @@ function operate (num1, operand, displayValue) {
         case '-':
             return display.textContent = subtract(num1, num2);
             break;
-        case '*': 
+        case 'x': 
             return display.textContent = multiply(num1, num2);
             break;
         case '/':
@@ -35,7 +35,7 @@ function reset () {
 }
 
 function changeDisplay (value) {
-    if (value === '+' || value === '-' || value === '*' || value === '/' || value === '^'){
+    if (value === '+' || value === '-' || value === 'x' || value === '/' || value === '^'){
         operand = value;
         num1 = document.querySelector('.display').textContent;
         document.querySelector('.display').textContent += `${value}`;
@@ -48,7 +48,7 @@ function changeDisplay (value) {
 const numeric = document.querySelectorAll('.numeric');
 numeric.forEach(button => button.addEventListener('click', (e) => changeDisplay(e.target.id)));
 
-const operators = document.querySelectorAll('.operators button');
+const operators = document.querySelectorAll('button.operator');
 operators.forEach(operator => operator.addEventListener('click', (e) => changeDisplay(e.target.textContent)));
 
 const equals = document.querySelector('#equals');
