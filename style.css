@@ -16,37 +16,59 @@ button {
     color: black;
     font-size: 16px;
     padding: 0;
+    border-radius: 3px; 
+    
 }
 
 a {
     text-decoration: none;
     color: black;
+    margin-left: 10px;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
 
 .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    font-size: 20px;
+    padding: 10px;
 } 
 
 .calculator {
     display: grid;
-    max-width: 20vw;
+    max-width: fit-content;
     max-height: 50vh;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(6, 1fr);
-    gap: 3px;
+    gap: 2px;
+    align-self: center;
+    font-size: 14px;    
 }
 
 .display {
-    width: 100%;
+    width: 98%;
     height: 50px;
     font-size: 20px;
     grid-column: 1 / 5;
+    border-style: solid;
+    border-width: 2px;
+}
+
+.footer {
+    padding: 10px;
 }
 
 button#equals {
-    grid-column: 3 / 4;
+    background-color: rgb(9, 21, 133);
+    color: white;
+    /* grid-column: 3-5;
+    width: 100px; */
 }
 
 button.operator {
