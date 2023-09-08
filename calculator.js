@@ -7,58 +7,60 @@ function operate (var1, operator, displayValue) {
     let num1 = Number(var1);
     let operandIndex = displayValue.indexOf(operator) + 1;
     num2 = Number(displayValue.slice(operandIndex));
-    let display = document.querySelector('.display');
     let result = 0;
     switch (operand) {
         case '+':
             operand = '';
-            return display.textContent = add(num1, num2);
+            return display.value = add(num1, num2);
             break;
         case '-':
             operand = '';
-            return display.textContent = subtract(num1, num2);
+            return display.value = subtract(num1, num2);
             break;
         case 'x': 
             operand = '';
-            return display.textContent = multiply(num1, num2);
+            return display.value = multiply(num1, num2);
             break;
         case '/':
             operand = '';
-            return display.textContent = divide(num1, num2);
+            return display.value = divide(num1, num2);
             break;
         case '^':
             operand = '';
-            return display.textContent = exponent(num1, num2);
+            return display.value = exponent(num1, num2);
     };
 }
 
 function reset () {
-    document.querySelector('.display').textContent = '';
+    display.value = '';
     var1 = '';
     num2 = '';
     operand = '';
 }
 
-function changeDisplay (value) {
-    if (operand !== '' && value === '+' || operand !== '' && value === '-' || operand !== '' && value === 'x' || 
-        operand !== '' && value === '/' || operand !== '' && value === '^' ) {
-            var1 = operate(var1, operand, document.querySelector('.display').textContent);
-            document.querySelector('.display').textContent += `${value}`;
-            operand = value;
-    } else if (value === '+' || value === '-' || value === 'x' || value === '/' || value === '^'){
-        operand = value;
-        var1 = document.querySelector('.display').textContent;
-        document.querySelector('.display').textContent += `${value}`;
+function changeDisplay (key) {
+
+    if (operand !== '' && key === '+' || operand !== '' && key === '-' || operand !== '' && key === 'x' || 
+        operand !== '' && key === '/' || operand !== '' && key === '^' ) {
+            var1 = operate(var1, operand, display.value);
+            display.value += `${key}`;
+            operand = key;
+    } else if (key === '+' || key === '-' || key === 'x' || key === '/' || key === '^'){
+        operand = key;
+        var1 = display.value;
+        display.value += `${key}`;
     } else {
-        document.querySelector('.display').textContent += `${value}`;
+        display.value += `${key}`;
     };
 }
 
 function remove (string) {
-    document.querySelector('.display').textContent = string.slice(0, string.length - 1);
+    display.value = string.slice(0, string.length - 1);
 };
 
 //Event Listeners
+const display = document.querySelector('.display');
+
 const numeric = document.querySelectorAll('.numeric');
 numeric.forEach(button => button.addEventListener('click', (e) => changeDisplay(e.target.id)));
 
@@ -66,13 +68,13 @@ const operators = document.querySelectorAll('button.operator');
 operators.forEach(operator => operator.addEventListener('click', (e) => changeDisplay(e.target.textContent)));
 
 const equals = document.querySelector('#equals');
-equals.addEventListener('click', (e) => operate(var1, operand, document.querySelector('.display').textContent));
+equals.addEventListener('click', (e) => operate(var1, operand, display.value));
 
 const clear = document.querySelector('#clear');
 clear.addEventListener('click', reset);
 
 const backspace = document.querySelector('#backspace');
-backspace.addEventListener('click', (e) => remove (document.querySelector('.display').textContent));
+backspace.addEventListener('click', (e) => remove (display.value));
 
 //operator functions
 function add (a, b)  {return a + b};
@@ -87,3 +89,17 @@ function divide (a, b) {
     };
 };
 function exponent (a, b) {return Math.pow(a,b)};
+
+//keyboard support
+display.addEventListener('keydown', (e) => checkKeyValue(e));
+
+function checkKeyValue(key) {
+    let value = key.key;
+    let numbersOperators = '1234567890*/+-^.';
+    if(!numbersOperators.includes(value)) {
+        key.preventDefault();
+    };
+    if(value === 'Backspace'){
+        remove(display.value);
+    };
+}
