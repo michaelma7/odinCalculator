@@ -52,20 +52,20 @@ a {
     display: grid;
     max-width: fit-content;
     max-height: 50vh;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 54px);
     grid-template-rows: repeat(6, 1fr);
-    column-gap: 3px;
     row-gap: 1px;
     align-self: center;
     font-size: 14px;    
 }
 
 .display {
-    width: 98%;
-    height: 50px;
+    width: 94.5%;
+    height: 46px;
     font-size: 35px;
     grid-column: 1 / 5;
     border-style: solid;
+    border-color: black;
     border-width: 2px;
 }
 
